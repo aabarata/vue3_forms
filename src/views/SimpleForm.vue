@@ -15,31 +15,27 @@
 
       <h3>Name & describe your event</h3>
 
-      <label>Title</label>
-      <input
+      <BaseInput
         v-model="event.title"
+        label="Title"
         type="text"
-        placeholder="Title"
-        class="field"
-      >
+      ></BaseInput>
 
-      <label>Description</label>
-      <input
+      <BaseInput
         v-model="event.description"
+        label="Description"
         type="text"
-        placeholder="Description"
-        class="field"
-      />
+      ></BaseInput>
 
       <h3>Where is your event?</h3>
 
-      <label>Location</label>
-      <input
+      <BaseInput
         v-model="event.location"
+        label="Location"
         type="text"
-        placeholder="Location"
-        class="field"
-      />
+      ></BaseInput>
+
+      {{ event }}
 
       <h3>Are pets allowed?</h3>
       <div>

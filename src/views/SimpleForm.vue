@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form>
+    <form @submit.prevent="sendForm">
 
       <BaseSelect
         v-model="event.category"
@@ -33,23 +33,11 @@
 
       <h3>Are pets allowed?</h3>
       <div>
-        <BaseRadio
-          name="pets"
-          label="Yes"
+        <BaseRadioGroup
           v-model="event.pets"
-          :value="1"
-        >
-        </BaseRadio>
-      </div>
-
-      <div>
-        <BaseRadio
+          :options="petOptions"
           name="pets"
-          label="No"
-          v-model="event.pets"
-          :value="0"
-        >
-        </BaseRadio>
+        ></BaseRadioGroup>
       </div>
 
       <h3>Extras</h3>
@@ -57,16 +45,14 @@
         <BaseCheckbox
           v-model="event.extras.catering"
           label="Catering"
-        >
-        </BaseCheckbox>
+        ></BaseCheckbox>
       </div>
 
       <div>
         <BaseCheckbox
           v-model="event.extras.music"
           label="Live music"
-        >
-        </BaseCheckbox>
+        ></BaseCheckbox>
       </div>
 
       {{ event }}
@@ -77,6 +63,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -89,6 +77,10 @@ export default {
         'food',
         'community'
       ],
+      petOptions: [
+        { value: 1, label: 'Yes' },
+        { value: 0, label: 'No' }
+      ],
       event: {
         category: '',
         title: '',
@@ -100,6 +92,20 @@ export default {
           music: false
         }
       }
+    }
+  },
+  methods: {
+    sendForm () {
+      axios.post(
+        'https://my-json-server.typicode.com/Code-Pop/Vue-3-Forms/events',
+        this.event
+      )
+        .then(function (response) {
+          console.log('Response', response)
+        })
+        .catch(function (err) {
+          console.log('Error', err)
+        })
     }
   }
 }
